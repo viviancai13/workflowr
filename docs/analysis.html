@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Jingwei Cai" />
+
+
+<title>bootcamp2018</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">bootcamp2018workflowr</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">bootcamp2018</h1>
+<h4 class="author"><em>Jingwei Cai</em></h4>
+<h4 class="date"><em>6/20/2018</em></h4>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2018-06-20</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20180620)</code> </summary></p>
+<p>The command <code>set.seed(20180620)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> 5161d10 </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    docs/.Rhistory
+
+Untracked files:
+    Untracked:  analysis/analysis.Rmd
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
+</li>
+</ul>
+<hr />
+<pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;)</code></pre>
+<pre><code>Bioconductor version 3.6 (BiocInstaller 1.28.0), ?biocLite for help</code></pre>
+<pre><code>A new version of Bioconductor is available after installing the most
+  recent version of R; see http://bioconductor.org/install</code></pre>
+<pre class="r"><code>biocLite(&quot;Biobase&quot;)</code></pre>
+<pre><code>BioC_mirror: https://bioconductor.org</code></pre>
+<pre><code>Using Bioconductor 3.6 (BiocInstaller 1.28.0), R 3.4.1 (2017-06-30).</code></pre>
+<pre><code>Installing package(s) &#39;Biobase&#39;</code></pre>
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/t8/vcjs1m5x5v5_xvx8q_j1p9gw0000gn/T//RtmpTBwRIa/downloaded_packages</code></pre>
+<pre><code>Old packages: &#39;httpuv&#39;, &#39;later&#39;, &#39;mgcv&#39;, &#39;utf8&#39;</code></pre>
+<pre class="r"><code>biocLite(&quot;genefilter&quot;)</code></pre>
+<pre><code>BioC_mirror: https://bioconductor.org</code></pre>
+<pre><code>Using Bioconductor 3.6 (BiocInstaller 1.28.0), R 3.4.1 (2017-06-30).</code></pre>
+<pre><code>Installing package(s) &#39;genefilter&#39;</code></pre>
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/t8/vcjs1m5x5v5_xvx8q_j1p9gw0000gn/T//RtmpTBwRIa/downloaded_packages</code></pre>
+<pre><code>Old packages: &#39;httpuv&#39;, &#39;later&#39;, &#39;mgcv&#39;, &#39;utf8&#39;</code></pre>
+<pre class="r"><code>devtools::install_github(&quot;genomicsclass/GSE5859&quot;)</code></pre>
+<pre><code>Downloading GitHub repo genomicsclass/GSE5859@master
+from URL https://api.github.com/repos/genomicsclass/GSE5859/zipball/master</code></pre>
+<pre><code>Installing GSE5859</code></pre>
+<pre><code>&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
+  --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+  &#39;/private/var/folders/t8/vcjs1m5x5v5_xvx8q_j1p9gw0000gn/T/RtmpTBwRIa/devtools5bd04fe72a69/genomicsclass-GSE5859-3d8cdd7&#39;  \
+  --library=&#39;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&#39;  \
+  --install-tests </code></pre>
+<pre><code></code></pre>
+<pre class="r"><code>library(Biobase)</code></pre>
+<pre><code>Warning: package &#39;Biobase&#39; was built under R version 3.4.2</code></pre>
+<pre><code>Loading required package: BiocGenerics</code></pre>
+<pre><code>Warning: package &#39;BiocGenerics&#39; was built under R version 3.4.2</code></pre>
+<pre><code>Loading required package: parallel</code></pre>
+<pre><code>
+Attaching package: &#39;BiocGenerics&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:parallel&#39;:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    IQR, mad, sd, var, xtabs</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    anyDuplicated, append, as.data.frame, cbind, colMeans,
+    colnames, colSums, do.call, duplicated, eval, evalq, Filter,
+    Find, get, grep, grepl, intersect, is.unsorted, lapply,
+    lengths, Map, mapply, match, mget, order, paste, pmax,
+    pmax.int, pmin, pmin.int, Position, rank, rbind, Reduce,
+    rowMeans, rownames, rowSums, sapply, setdiff, sort, table,
+    tapply, union, unique, unsplit, which, which.max, which.min</code></pre>
+<pre><code>Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    &#39;browseVignettes()&#39;. To cite Bioconductor, see
+    &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
+<pre class="r"><code>library(rafalib)
+library(GSE5859)
+library(genefilter)</code></pre>
+<pre><code>Warning: package &#39;genefilter&#39; was built under R version 3.4.2</code></pre>
+<pre class="r"><code>data(GSE5859)</code></pre>
+<pre class="r"><code># gene expression levels  
+geneExpression = exprs(e)</code></pre>
+<div id="data-collection-dates" class="section level1">
+<h1>Data collection dates</h1>
+<pre class="r"><code># print date info
+sampleInfo = pData(e)
+head(sampleInfo$date)</code></pre>
+<pre><code>[1] &quot;2003-02-04&quot; &quot;2003-02-04&quot; &quot;2002-12-17&quot; &quot;2003-01-30&quot; &quot;2003-01-03&quot;
+[6] &quot;2003-01-16&quot;</code></pre>
+<p>Check years that the data from different ethnic groups were collected</p>
+<pre class="r"><code># Print a table of year vs ethnic groups
+year = factor( format(sampleInfo$date,&quot;%y&quot;) )
+tab = table(year,sampleInfo$ethnicity)
+print(tab)</code></pre>
+<pre><code>    
+year ASN CEU HAN
+  02   0  32   0
+  03   0  54   0
+  04   0  13   0
+  05  80   3   0
+  06   2   0  24</code></pre>
+</div>
+<div id="differential-expression-analysis" class="section level1">
+<h1>Differential expression analysis</h1>
+<pre class="r"><code>##remove control genes
+out &lt;- grep(&quot;AFFX&quot;,rownames(geneExpression))</code></pre>
+<p>We first use a t-test to perform differential expression analysis between CEU and ASN.</p>
+<pre class="r"><code>eth &lt;- sampleInfo$ethnicity
+ind&lt;- which(eth%in%c(&quot;CEU&quot;,&quot;ASN&quot;))
+res1 &lt;- rowttests(geneExpression[-out,ind],droplevels(eth[ind]))</code></pre>
+<p>We then perform the same analysis between 2002 vs 2003 within CEU.</p>
+<pre class="r"><code>ind &lt;- which(year%in%c(&quot;02&quot;,&quot;03&quot;) &amp; eth==&quot;CEU&quot;)
+res2 &lt;- rowttests(geneExpression[-out,ind],droplevels(year[ind]))</code></pre>
+<p>We plot histograms for p-values as in Akey et al (2007).</p>
+<pre class="r"><code>mypar(2, 2)
+hist(res1$p, main=&quot;p-value of CEU vs ASN&quot;)
+hist(res2$p, main=&quot;p-value of 2002 vs 2003 for CEU&quot;)</code></pre>
+<p><img src="figure/analysis.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There are a lot of significant genes between the CEU samples collected in 2002 and 2003.</p>
+</div>
+<div id="r-markdown-report-2" class="section level1">
+<h1>R markdown report 2</h1>
+</div>
+<div id="remove-a-redundant-sample" class="section level1">
+<h1>remove a redundant sample</h1>
+<pre class="r"><code>cors &lt;- cor(exprs(e))
+Pairs=which(abs(cors)&gt;0.9999,arr.ind=TRUE)
+out = Pairs[which(Pairs[,1]&lt;Pairs[,2]),,drop=FALSE]
+if(length(out[,2])&gt;0) e=e[,-out[2]]
+# remove control probes from the analysis
+out &lt;- grep(&quot;AFFX&quot;,featureNames(e))
+e &lt;- e[-out,]</code></pre>
+</div>
+<div id="create-a-detrended-gene-expression-data-matrix-and" class="section level1">
+<h1>Create a detrended gene expression data matrix and</h1>
+</div>
+<div id="extract-the-information-on-dates-and-ethnic-group" class="section level1">
+<h1>extract the information on dates and ethnic group</h1>
+<pre class="r"><code>y &lt;- exprs(e)-rowMeans(exprs(e))
+dates &lt;- pData(e)$date
+eth &lt;- pData(e)$ethnicity</code></pre>
+</div>
+<div id="perform-pca" class="section level1">
+<h1>perform PCA</h1>
+<pre class="r"><code>s &lt;- svd(y)
+
+# output: plot MDS plot of PC1 and PC2 for ethnic groups
+cols = as.numeric(eth)
+mypar()
+plot(s$v[,1],s$v[,2],col=cols,pch=16, xlab=&quot;PC1&quot;,ylab=&quot;PC2&quot;)
+legend(&quot;bottomleft&quot;,levels(eth),col=seq(along=levels(eth)),pch=16)
+title(&quot;Ethnic groups&quot;)</code></pre>
+<p><img src="figure/analysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># output: plot PC1 and PC2 for years
+cols = as.numeric(year)
+mypar()
+plot(s$v[,1],s$v[,2],col=cols,pch=16, xlab=&quot;PC1&quot;,ylab=&quot;PC2&quot;)
+legend(&quot;bottomleft&quot;,levels(year),col=seq(along=levels(year)),pch=16)
+title(&quot;Years&quot;)</code></pre>
+<p><img src="figure/analysis.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.4.1 (2017-06-30)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+[1] genefilter_1.60.0    GSE5859_1.0          rafalib_1.0.0       
+[4] Biobase_2.38.0       BiocGenerics_0.24.0  BiocInstaller_1.28.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_0.12.17         compiler_3.4.1       RColorBrewer_1.1-2  
+ [4] git2r_0.21.0         workflowr_1.0.1      R.methodsS3_1.7.1   
+ [7] R.utils_2.6.0        bitops_1.0-6         tools_3.4.1         
+[10] bit_1.1-14           digest_0.6.15        lattice_0.20-35     
+[13] annotate_1.56.2      evaluate_0.10.1      memoise_1.1.0       
+[16] RSQLite_2.1.1        Matrix_1.2-14        DBI_1.0.0           
+[19] curl_3.2             yaml_2.1.19          withr_2.1.2         
+[22] httr_1.3.1           stringr_1.3.1        knitr_1.20          
+[25] IRanges_2.12.0       S4Vectors_0.16.0     devtools_1.13.5     
+[28] grid_3.4.1           bit64_0.9-7          stats4_3.4.1        
+[31] rprojroot_1.3-2      R6_2.2.2             AnnotationDbi_1.40.0
+[34] survival_2.42-3      XML_3.98-1.11        rmarkdown_1.10      
+[37] blob_1.1.1           magrittr_1.5         whisker_0.3-2       
+[40] splines_3.4.1        backports_1.1.2      htmltools_0.3.6     
+[43] xtable_1.8-2         stringi_1.2.3        RCurl_1.95-4.10     
+[46] R.oo_1.22.0         </code></pre>
+</div>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.0.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
